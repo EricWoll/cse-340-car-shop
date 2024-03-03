@@ -1,0 +1,145 @@
+/******* Change Box Model ***************/
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+* {
+  margin: 0;
+  padding: 0;
+}
+a {
+  color: black;
+  text-decoration: none;
+}
+a:visited {
+  color: black;
+}
+
+/* HEADER */
+#top-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 0;
+  width: 100vw;
+}
+
+.site-name {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+/* NAVIGATION */
+nav {
+  background-color: black;
+  margin: 1rem 0;
+}
+nav ul {
+  display: flex;
+  justify-content: space-around;
+  list-style-type: none;
+  color: white;
+  padding: 1rem 0;
+  font-size: 1.25rem;
+}
+
+/* PAGE TITLE */
+#page-title {
+  font-size: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+#hero {
+  margin: 2rem 0;
+  background-image: url('http://localhost:5500/images/vehicles/delorean-tn.jpg');
+  background-repeat: no-repeat;
+  background-size:contain;
+  background-position: 5rem 0;
+  height: 10rem;
+}
+#show-car {
+  background-color: rgba(255, 255, 255, 0.301);
+  width: fit-content;
+  padding-left: .25rem;
+}
+#show-car h2 {
+  margin: .25rem 0;
+  color: rgb(6, 148, 148);
+  font-weight: bold;
+}
+#show-car p {
+  margin: .5rem 0;
+  color: rgb(6, 148, 148);
+}
+#show-car a{
+  margin: 2rem 0;
+  padding: .5rem;
+  background-color:rgb(6, 148, 148);
+  font-weight: bolder;
+}
+
+/* Car Info */
+.car-titles {
+  margin: 1rem 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+/* REVIEWS */
+#reviews {
+  margin: 1rem 0;
+}
+#reviews li{
+  margin: 1rem 2rem;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+/* UPGRADES */
+#upgrade-info {
+  margin: 2rem 0;
+}
+.upgrade {
+  display: grid;
+  margin: .25rem;
+  padding: .5rem;
+  align-items: center;
+  text-align: center;
+  height: 100%;
+}
+.upgrade section {
+  padding: .25rem 0;
+  background-color: aqua;
+  border-color: rgba(0, 0, 0, 0.411);
+  border-style: solid;
+  border-width: .1rem;
+  height: 5rem;
+}
+.upgrade a {
+  color: blue;
+  text-decoration: underline;
+}
+.upgrade-grid {
+  display: grid;
+}
+#upg-1 {
+  grid-row: 1;
+  grid-column: 1;
+}
+#upg-2 {
+  grid-row: 1;
+  grid-column: 2;
+}
+#upg-3 {
+  grid-row: 2 ;
+  grid-column: 1;
+}
+#upg-4 {
+  grid-row: 2 ;
+  grid-column: 2;
+}
+
+footer {
+  margin: 0 .5rem;
+  font-weight: bold;
+}

@@ -28,16 +28,16 @@ app.get('/', (req, res) => {
     res.render('partials/index', { title: 'home' });
 });
 
-// /* ***********************
-//  * Local Server Information
-//  * Values from .env (environment) file
-//  *************************/
-// const port = process.env.PORT;
-// const host = process.env.HOST;
+/* ***********************
+ * Local Server Information
+ * Values from .env (environment) file
+ *************************/
+const port = process.env.PORT;
+const host = process.env.HOST;
 
-// /* ***********************
-//  * Log statement to confirm server operation
-//  *************************/
-// app.listen(port, () => {
-//     console.log(`app listening on ${host}:${port}`);
-// });
+/* ***********************
+ * Log statement to confirm server operation
+ *************************/
+app.listen(port, () => {
+    console.log(`app listening on ${host}:${port}`);
+});

@@ -17,6 +17,7 @@
     #hero {
         grid-row: 1;
         grid-column: 1/3;
+        background-image: url('https://cse-340-car-shop.onrender.com/images/vehicles/delorean.jpg');
     }
     #reviews {
         grid-row: 2;

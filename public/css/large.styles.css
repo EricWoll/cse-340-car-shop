@@ -28,4 +28,14 @@
         grid-column: 1;
     }
 
+    /* INVENTORY DISPLAY */
+    #inv-display li {
+        width: 75vw;
+    }
+    #inv-display {
+        align-items: center;
+    }
+    .namePrice h2 a {
+        font-size: 1.5rem;
+    }
 }

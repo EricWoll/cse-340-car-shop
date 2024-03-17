@@ -241,3 +241,19 @@ footer {
     margin: 0 0.5rem;
     font-weight: bold;
 }
+
+/* ERROR PAGE */
+#error,
+#error-message {
+    color: rgb(255, 43, 43);
+    text-align: center;
+}
+#error {
+    margin: 1rem;
+}
+#error-message {
+    background-color: rgb(255, 222, 222);
+    margin: 1rem 2rem;
+    padding: 1rem 0;
+    border-radius: 0.5rem;
+}

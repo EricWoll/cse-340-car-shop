@@ -24,8 +24,21 @@ invCont.buildByClassificationId = async function (req, res, next) {
 invCont.buildByInventoryId = async (req, res, next) => {
     const inv_id = req.params.inv_id;
     const data = await invModel.getModelByInventoryId(inv_id);
+
     const grid = await utilities.buildByInventoryId(data);
     let nav = await utilities.getNav();
+
+    // error check
+    if (data.length <= 0) {
+        const message = 'Sorry, we appear to have lost that page.';
+        res.render('./inventory/error', {
+            title: '404',
+            nav,
+            message,
+        });
+        return;
+    }
+
     const title = `${data[0].inv_year} ${data[0].inv_make} ${data[0].inv_model}`;
     res.render('./inventory/model', {
         title: title,

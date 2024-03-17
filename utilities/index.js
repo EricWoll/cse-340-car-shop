@@ -77,6 +77,33 @@ Util.buildClassificationGrid = async function (data) {
     return grid;
 };
 
+Util.buildByInventoryId = async (data) => {
+    let grid;
+    if (data.length > 0) {
+        const model = data[0];
+        grid = `
+        <div id="model-info">
+            <img
+                id="model-img"
+                src="${model.inv_image}"
+                alt="Image of ${model.inv_make} ${model.inv_model} on CSE Motors"
+                />
+            <section id='model-details'>
+                <h2>${model.inv_make} ${model.inv_model} Details</h2>
+                <p><strong>Price:</strong> $${model.inv_price}</p>
+                <p><strong>Description</strong>: ${model.inv_description}</p>
+                <p><strong>Color</strong>: ${model.inv_color}</p>
+                <p><strong>Miles</strong>: ${model.inv_miles}</p>
+            </section>
+        </div>
+        `;
+    } else {
+        grid =
+            '<p class="notice">Sorry, no matching vehicles could be found.</p>';
+    }
+    return grid;
+};
+
 /* ****************************************
  * Middleware For Handling Errors
  * Wrap other function in this for

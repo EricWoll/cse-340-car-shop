@@ -38,4 +38,18 @@
     .namePrice h2 a {
         font-size: 1.5rem;
     }
+
+    /* MODEL PAGE */
+    #model-info {
+        gap: 5rem;
+        margin-top: 2rem;
+    }
+    #model-img {
+        grid-column: 1;
+        width: auto;
+        max-height: 20rem;
+    }
+    #model-details {
+        grid-column: 2;
+    }
 }

@@ -13,6 +13,8 @@ const static = require('./routes/static');
 const inventoryRoute = require('./routes/inventoryRoute');
 const baseController = require('./controllers/baseController');
 const Util = require('./utilities');
+const session = require('express-session');
+const pool = require('./database/');
 
 /* ***********************
  * View Engine and Templates
@@ -21,6 +23,22 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.use(expressLayouts);
 app.set('layout', './layouts/layout');
+
+/* ***********************
+ * Middleware
+ * ************************/
+app.use(
+    session({
+        store: new (require('connect-pg-simple')(session))({
+            createTableIfMissing: true,
+            pool,
+        }),
+        secret: process.env.SESSION_SECRET,
+        resave: true,
+        saveUninitialized: true,
+        name: 'sessionId',
+    })
+);
 
 /* ***********************
  * Routes

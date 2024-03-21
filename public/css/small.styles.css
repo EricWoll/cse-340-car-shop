@@ -236,6 +236,43 @@ nav ul {
     background-color: rgba(255, 255, 255, 0.479);
 }
 
+/* LOGIN PAGE */
+main:has(> #login-form) {
+    display: grid;
+    justify-content: center;
+}
+form {
+    display: grid;
+    justify-content: center;
+    padding: 1rem;
+    margin: 0.5rem 0;
+    background-color: rgba(192, 192, 192, 0.479);
+    border-radius: 0.5rem;
+}
+input {
+    margin: 0.3rem 0;
+    padding: 0.25rem;
+    border-radius: 0.5rem;
+}
+#register {
+    font-size: 1.5rem;
+}
+#register > a {
+    text-decoration: underline;
+}
+#form-submit {
+    cursor: pointer;
+}
+#form-submit:hover {
+    background-color: rgba(212, 212, 212, 0.384);
+}
+#form-submit:active {
+    background-color: rgba(255, 255, 255, 0);
+}
+input[type='checkbox']:hover {
+    cursor: pointer;
+}
+
 /* FOOTER */
 footer {
     margin: 0 0.5rem;

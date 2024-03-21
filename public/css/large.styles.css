@@ -52,4 +52,14 @@
     #model-details {
         grid-column: 2;
     }
+
+    /* LOGIN PAGE */
+    form > * {
+        font-size: 2rem;
+    }
+    input[type='checkbox'] {
+        transform: scale(2);
+        padding: 0.5rem;
+        margin: 0 0.5rem;
+    }
 }

@@ -15,6 +15,7 @@ const baseController = require('./controllers/baseController');
 const Util = require('./utilities');
 const session = require('express-session');
 const pool = require('./database/');
+const bodyParser = require('body-parser');
 
 /* ***********************
  * View Engine and Templates
@@ -40,14 +41,27 @@ app.use(
     })
 );
 
+app.use(bodyParser.json());
+// for parsing application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// Express Messages Middleware
+app.use(require('connect-flash')());
+app.use(function (req, res, next) {
+    res.locals.messages = require('express-messages')(req, res);
+    next();
+});
+
 /* ***********************
  * Routes
  *************************/
 app.use(static);
 // Index Route
-app.get('/', baseController.buildHome);
+app.get('/', Util.handleErrors(baseController.buildHome));
 // Inventory routes
 app.use('/inv', inventoryRoute);
+// Login routes
+app.use('/account', require('./routes/accountRoute'));
 
 /* ***********************
  * Express Error Handler

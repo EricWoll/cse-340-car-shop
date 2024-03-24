@@ -1,0 +1,15 @@
+<% if (title) { %>
+<h1 id="inv-title"><%= title %></h1>
+<% } else { res.redirect('/') } %> <%- messages() %>
+<form id="classification-form" action="/inv/classification" method="post">
+    <label for="classification-name">Classification Name</label>
+    <input
+        type="text"
+        id=""
+        name="classification_name"
+        value="<%= locals.classification_name %>"
+        pattern="[a-zA-Z]+"
+        required
+    />
+    <input type="submit" id="form-submit" value="Add Classification" />
+</form>

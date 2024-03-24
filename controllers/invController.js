@@ -1,4 +1,6 @@
 const invModel = require('../models/inventory-model');
+const vehicleModel = require('../models/vehicle-model');
+const classModel = require('../models/classification-model');
 const utilities = require('../utilities/');
 
 const invCont = {};
@@ -59,7 +61,7 @@ invCont.buildManagement = async (req, res, next) => {
 invCont.buildManageClassification = async (req, res, next) => {
     let nav = await utilities.getNav();
 
-    res.render('./inventory/manageClassification', {
+    res.render('inventory/manageClassification', {
         title: 'Add Classification',
         nav,
     });
@@ -70,6 +72,75 @@ invCont.buildManageVehicle = async (req, res, next) => {
 
     res.render('./inventory/manageVehicle', {
         title: 'Add Vehicle',
+        nav,
+    });
+};
+
+invCont.registerVehicle = async (req, res) => {
+    let nav = await utilities.getNav();
+    const {
+        inv_make,
+        inv_model,
+        inv_year,
+        inv_description,
+        inv_image,
+        inv_thumbnail,
+        inv_price,
+        inv_miles,
+        inv_color,
+        classification_id,
+    } = req.body;
+
+    const regResult = await vehicleModel.addVehicle(
+        inv_make,
+        inv_model,
+        inv_year,
+        inv_description,
+        inv_image,
+        inv_thumbnail,
+        inv_price,
+        inv_miles,
+        inv_color,
+        classification_id
+    );
+
+    if (regResult) {
+        req.flash(
+            'notice',
+            `You\'ve added ${inv_year} ${inv_make} ${inv_model}.`
+        );
+        res.status(201);
+    } else {
+        req.flash(
+            'notice',
+            `Sorry, there was an error adding ${inv_year} ${inv_make} ${inv_model}.`
+        );
+        res.status(501);
+    }
+    res.render('./inventory/manageVehicle', {
+        title: 'Add Vehicle',
+        nav,
+    });
+};
+
+invCont.registerClassification = async (req, res) => {
+    let nav = await utilities.getNav();
+    const { classification_name } = req.body;
+
+    const regResult = await classModel.addClassification(classification_name);
+
+    if (regResult) {
+        req.flash('notice', `You\'ve added ${classification_name}`);
+        res.status(201);
+    } else {
+        req.flash(
+            'notice',
+            `Sorry, there was an error adding ${classification_name}.`
+        );
+        res.status(501);
+    }
+    res.render('/inv/classification', {
+        title: 'Add Classification',
         nav,
     });
 };

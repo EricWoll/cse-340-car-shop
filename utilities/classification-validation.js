@@ -7,7 +7,6 @@ classValidate = {};
  *  Registration Data Validation Rules
  * ********************************* */
 classValidate.registationRules = () => {
-    console.log('validate');
     return [
         // firstname is required and must be string
         body('classification_name')

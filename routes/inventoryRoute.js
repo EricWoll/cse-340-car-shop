@@ -26,13 +26,13 @@ router.post(
     '/vehicle',
     vehicleRegVal.registationRules(),
     vehicleRegVal.checkRegData,
-    Util.handleErrors(invController.buildManageVehicle)
+    Util.handleErrors(invController.registerVehicle)
 );
 router.post(
     '/classification',
     classRegVal.registationRules(),
     classRegVal.checkRegData,
-    Util.handleErrors(invController.buildManageClassification)
+    Util.handleErrors(invController.registerClassification)
 );
 
 module.exports = router;

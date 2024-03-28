@@ -11,7 +11,15 @@
         value="<%= locals.account_email %>"
     />
     <label for="password">Password:</label>
-    <input type="password" id="password" name="account_password" required />
+    <input
+        type="password"
+        id="password"
+        name="account_password"
+        required
+        title="Must contain one number, one uppercase letter, and at least 12 characters"
+        pattern="(?=.*\d)(?=.*[A-Z])(?=.*[@$!%*#?&]).{12,}"
+        minlength="12"
+    />
     <input type="submit" id="form-submit" value="Login" />
     <p id="register">No Account? <a href="/account/register">Sign Up</a></p>
 </form>

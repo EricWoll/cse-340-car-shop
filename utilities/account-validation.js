@@ -6,6 +6,45 @@ const validate = {};
 /*  **********************************
  *  Registration Data Validation Rules
  * ********************************* */
+validate.loginRules = () => {
+    return [
+        //account email
+        body('account_email')
+            .trim()
+            .escape()
+            .notEmpty()
+            .isEmail()
+            .normalizeEmail() // refer to validator.js docs
+            .withMessage('A valid email is required.'),
+
+        // email exists
+        body('account_email')
+            .trim()
+            .isEmail()
+            .normalizeEmail() // refer to validator.js docs
+            .withMessage('A valid email is required.')
+            .custom(async (account_email) => {
+                const emailExists = await accountModel.checkExistingEmail(
+                    account_email
+                );
+                if (!emailExists) {
+                    throw new Error(
+                        'Email does not exist. Please register or use different email'
+                    );
+                }
+            }),
+
+        //password check
+        body('account_password')
+            .trim()
+            .notEmpty()
+            .withMessage('No Password Entered.')
+            .isLength({ min: 12 })
+            .withMessage(
+                'There is not at least 12 characters for your password.'
+            ),
+    ];
+};
 validate.registationRules = () => {
     return [
         // firstname is required and must be string
@@ -33,7 +72,7 @@ validate.registationRules = () => {
             .normalizeEmail() // refer to validator.js docs
             .withMessage('A valid email is required.'),
 
-        // password is required and must be strong password
+        // email exists check
         body('account_email')
             .trim()
             .isEmail()
@@ -49,6 +88,16 @@ validate.registationRules = () => {
                     );
                 }
             }),
+
+        //password check
+        body('account_password')
+            .trim()
+            .notEmpty()
+            .withMessage('No Password Entered.')
+            .isLength({ min: 12 })
+            .withMessage(
+                'There is not at least 12 characters for your password.'
+            ),
     ];
 };
 

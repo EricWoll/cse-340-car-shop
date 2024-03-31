@@ -26,6 +26,7 @@ router.get(
     '/getInventory/:classification_id',
     Util.handleErrors(invController.getInventoryJSON)
 );
+router.get('/edit/:inv_id', Util.handleErrors(invController.editInventoryView));
 
 router.post(
     '/vehicle',
@@ -38,6 +39,13 @@ router.post(
     classRegVal.registationRules(),
     classRegVal.checkRegData,
     Util.handleErrors(invController.registerClassification)
+);
+
+router.post(
+    '/update',
+    vehicleRegVal.registationRules(),
+    vehicleRegVal.checkUpdateData,
+    Util.handleErrors(invController.updateInventory)
 );
 
 module.exports = router;

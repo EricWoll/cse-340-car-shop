@@ -1,0 +1,45 @@
+<% if (title) { %>
+<h1 id="inv-title"><%= title %></h1>
+<% } else { res.redirect('/') } %> <%- messages() %>
+<form id="vehicle-form" action="/inv/update" method="post">
+    <label for="classification-name">Classification</label>
+    <!-- Dropdown name="classification_id" -->
+    <label for="vehicle-make">Make</label>
+    <input type="text" id="vehicle-make" name="inv_make" required <% if(locals.inv_make) { %> value="<%= locals.inv_make %>"<% } %> />
+    <label for="vehicle-model">Model</label>
+    <input type="text" id="vehicle-model" name="inv_model" required <% if(locals.inv_model) { %> value="<%= locals.inv_model %>"<% } %> />
+    <label for="vehicle-description">Description</label>
+    <textarea
+        id="vehicle-description"
+        name="inv_description"
+        required
+    >
+        <% if(locals.inv_description) { %><%= locals.inv_description %><% } %>
+    </textarea>
+    <label for="vehicle-image-path">Image Path</label>
+    <input
+        type="text"
+        id="vehicle-image-path"
+        name="inv_image"
+        required
+        <% if(locals.inv_image) { %> value="<%= locals.inv_image %>"<% } %>
+    />
+    <label for="vehicle-thumbnail-path">Thumbnail Path</label>
+    <input
+        type="text"
+        id="vehicle-thumbnail-path"
+        name="inv_thumbnail"
+        required
+        <% if(locals.inv_thumbnail) { %> value="<%= locals.inv_thumbnail %>"<% } %>
+    />
+    <label for="vehicle-price">Price</label>
+    <input type="number" min="0" id="vehicle-price" name="inv_price" required <% if(locals.inv_price) { %> value="<%= locals.inv_price %>"<% } %> />
+    <label for="vehicle-year">Year</label>
+    <input type="number" min="0" id="vehicle-year" name="inv_year" required <% if(locals.inv_year) { %> value="<%= locals.inv_year %>"<% } %> />
+    <label for="vehicle-miles">Miles</label>
+    <input type="number" min="0" id="vehicle-miles" name="inv_miles" required <% if(locals.inv_miles) { %> value="<%= locals.inv_miles %>"<% } %> />
+    <label for="vehicle-color">Color</label>
+    <input type="text" id="vehicle-color" name="inv_color" required <% if(locals.inv_color) { %> value="<%= locals.inv_color %>"<% } %> />
+    <input type="submit" id="form-submit" value="Update Vehicle" />
+    <input type="hidden" name="inv_id" <% if(locals.inv_id) { %> value="<%= locals.inv_id %>"<% } %>>
+</form>

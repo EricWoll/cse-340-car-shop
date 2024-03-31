@@ -1,7 +1,7 @@
 const invModel = require('../models/inventory-model');
 const vehicleModel = require('../models/vehicle-model');
 const classModel = require('../models/classification-model');
-const utilities = require('../utilities/');
+const Util = require('../utilities/');
 
 const invCont = {};
 
@@ -13,8 +13,8 @@ invCont.buildByClassificationId = async function (req, res, next) {
     const data = await invModel.getInventoryByClassificationId(
         classification_id
     );
-    const grid = await utilities.buildClassificationGrid(data);
-    let nav = await utilities.getNav();
+    const grid = await Util.buildClassificationGrid(data);
+    let nav = await Util.getNav();
     const className = data[0].classification_name;
     res.render('./inventory/classification', {
         title: className + ' vehicles',
@@ -27,8 +27,8 @@ invCont.buildByInventoryId = async (req, res, next) => {
     const inv_id = req.params.inv_id;
     const data = await invModel.getModelByInventoryId(inv_id);
 
-    const grid = await utilities.buildByInventoryId(data);
-    let nav = await utilities.getNav();
+    const grid = await Util.buildByInventoryId(data);
+    let nav = await Util.getNav();
 
     // error check
     if (data.length <= 0) {
@@ -50,18 +50,18 @@ invCont.buildByInventoryId = async (req, res, next) => {
 };
 
 invCont.buildManagement = async (req, res, next) => {
-    let nav = await utilities.getNav();
-    const classificationSelect = await utilities.buildClassificationList();
+    let nav = await Util.getNav();
+    const classificationSelector = await Util.buildClassificationList();
 
     res.render('./inventory/management', {
         title: 'Vehicle Management',
         nav,
-        classificationSelect,
+        classificationSelector,
     });
 };
 
 invCont.buildManageClassification = async (req, res, next) => {
-    let nav = await utilities.getNav();
+    let nav = await Util.getNav();
 
     res.render('inventory/manageClassification', {
         title: 'Add Classification',
@@ -70,7 +70,7 @@ invCont.buildManageClassification = async (req, res, next) => {
 };
 
 invCont.buildManageVehicle = async (req, res, next) => {
-    let nav = await utilities.getNav();
+    let nav = await Util.getNav();
 
     res.render('./inventory/manageVehicle', {
         title: 'Add Vehicle',
@@ -79,7 +79,7 @@ invCont.buildManageVehicle = async (req, res, next) => {
 };
 
 invCont.registerVehicle = async (req, res) => {
-    let nav = await utilities.getNav();
+    let nav = await Util.getNav();
     const {
         inv_make,
         inv_model,
@@ -126,7 +126,7 @@ invCont.registerVehicle = async (req, res) => {
 };
 
 invCont.registerClassification = async (req, res) => {
-    let nav = await utilities.getNav();
+    let nav = await Util.getNav();
     const { classification_name } = req.body;
 
     const regResult = await classModel.addClassification(classification_name);
@@ -145,6 +145,21 @@ invCont.registerClassification = async (req, res) => {
         title: 'Add Classification',
         nav,
     });
+};
+
+/* ***************************
+ *  Return Inventory by Classification As JSON
+ * ************************** */
+invCont.getInventoryJSON = async (req, res, next) => {
+    const classification_id = parseInt(req.params.classification_id);
+    const invData = await invModel.getInventoryByClassificationId(
+        classification_id
+    );
+    if (invData[0].inv_id) {
+        return res.json(invData);
+    } else {
+        next(new Error('No data returned'));
+    }
 };
 
 module.exports = invCont;

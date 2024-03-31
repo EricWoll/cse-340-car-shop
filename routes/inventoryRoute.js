@@ -22,6 +22,11 @@ router.get(
     Util.handleErrors(invController.buildByInventoryId)
 );
 
+router.get(
+    '/getInventory/:classification_id',
+    Util.handleErrors(invController.getInventoryJSON)
+);
+
 router.post(
     '/vehicle',
     vehicleRegVal.registationRules(),

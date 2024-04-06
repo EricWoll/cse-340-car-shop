@@ -135,7 +135,7 @@ invCont.editInventoryView = async function (req, res, next) {
 };
 
 invCont.registerVehicle = async (req, res) => {
-    let nav = await Util.getNav();
+    let status = 200;
     const {
         inv_make,
         inv_model,
@@ -167,18 +167,16 @@ invCont.registerVehicle = async (req, res) => {
             'notice',
             `You\'ve added ${inv_year} ${inv_make} ${inv_model}.`
         );
-        res.status(201);
+        status = 201;
     } else {
         req.flash(
             'notice',
             `Sorry, there was an error adding ${inv_year} ${inv_make} ${inv_model}.`
         );
-        res.status(501);
+        status = 501;
     }
-    res.render('./inventory/manageVehicle', {
-        title: 'Add Vehicle',
-        nav,
-    });
+
+    res.status(status).redirect('./');
 };
 
 /* ***************************

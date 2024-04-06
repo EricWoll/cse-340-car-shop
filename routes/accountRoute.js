@@ -14,12 +14,16 @@ router.get(
 router.get('/login', Util.handleErrors(accountController.buildLogin));
 router.get('/register', Util.handleErrors(accountController.buildRegister));
 
+router.get('/manage', Util.handleErrors(accountController.buildManageAccounts));
+
 router.post(
     '/login',
     regValidate.loginRules(),
     regValidate.checkRegData,
     Util.handleErrors(accountController.accountLogin)
 );
+
+router.post('/manage', Util.handleErrors(accountController.updateAccount));
 
 router.post(
     '/register',

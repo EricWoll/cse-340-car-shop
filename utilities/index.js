@@ -120,6 +120,43 @@ Util.buildByInventoryId = async (data) => {
     return grid;
 };
 
+Util.buildAccountGrid = async (data) => {
+    let grid;
+    console.log(data)
+    if (data.length > 0) {
+        grid = '<ul id="accounts-holder" >';
+        data.forEach((account) => {
+            grid += '<li class="account">';
+            grid += `<section class="account-name"><p>${account.account_firstname}</p><p>${account.account_lastname}</p></section>`;
+            grid += `<p classs="account-email">${account.account_email}</p>`;
+            grid += `<p class="account-type">${account.account_type}</p>`;
+            if (account.account_type == 'Admin' || account.account_type == 'Employee') {
+                grid += `<form class="acount-updater" action="/account/manage" method="post">`
+                grid += `<select name=account_type>`;
+                grid += `<option value=${account.account_type}>${account.account_type}</option>`;
+                switch (account.account_type) {
+                    case 'Admin':
+                        grid += `<option value="Employee">Employee</option>`
+                        break;
+                    case 'Employee':
+                        grid += `<option value="Admin">Admin</option>`
+                        break;
+                }
+                grid += `</select>`
+                grid += `<input type="hidden" name="account_id" value=${account.account_id}>`
+                grid += `<input type="submit" class="form-update" value="Update" />`
+                grid += `</form>`
+
+            }
+            grid += '</li>'
+        });
+        grid += '</ul>';
+    } else {
+        grid = '<p class="notice">Sorry, no Accounts could be found.</p>';
+    }
+    return grid;
+}
+
 /* ****************************************
  * Middleware For Handling Errors
  * Wrap other function in this for

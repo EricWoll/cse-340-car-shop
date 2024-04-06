@@ -22,11 +22,35 @@ accountController.loginView = async (req, res, next) => {
     res.render('account/loginView', { title: 'Logged In', nav, errors: null });
 };
 
+accountController.buildManageAccounts = async (req, res, next) => {
+    const nav = await Util.getNav();
+    const data = await accountModel.getAllAcounts();
+    
+    const accountGrid = await Util.buildAccountGrid(data);
+    res.render('account/manageAccounts', {title: 'Manage Accounts', nav, accountGrid, errors: null})
+}
+
+accountController.updateAccount = async (req, res) => {
+    const {account_id, account_type} = req.body;
+    console.log(account_id, account_type)
+    const updateResult = await accountModel.updateAccountType(account_id, account_type);
+
+    if (updateResult) {
+        req.flash(
+            'notice',
+            `Account Updated.`
+        );
+        res.status(201).redirect('/account/manage');
+    } else {
+        req.flash('notice', 'Sorry, the Account Update failed.');
+        res.status(501).redirect('/account/manage');
+    }
+}
+
 /* ****************************************
  *  Process Registration
  * *************************************** */
 accountController.registerAccount = async (req, res) => {
-    let nav = await utilities.getNav();
     const {
         account_firstname,
         account_lastname,
@@ -44,11 +68,7 @@ accountController.registerAccount = async (req, res) => {
             'notice',
             'Sorry, there was an error processing the registration.'
         );
-        res.status(500).render('account/register', {
-            title: 'Registration',
-            nav,
-            errors: null,
-        });
+        res.status(500).redirect('/account/register');
     }
 
     const regResult = await accountModel.registerAccount(
@@ -63,16 +83,10 @@ accountController.registerAccount = async (req, res) => {
             'notice',
             `Congratulations, you\'re registered ${account_firstname}. Please log in.`
         );
-        res.status(201).render('account/login', {
-            title: 'Login',
-            nav,
-        });
+        res.status(201).redirect('/account/login');
     } else {
         req.flash('notice', 'Sorry, the registration failed.');
-        res.status(501).render('account/register', {
-            title: 'Registration',
-            nav,
-        });
+        res.status(501).redirect('/account/register');
     }
 };
 

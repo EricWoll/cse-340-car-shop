@@ -30,8 +30,8 @@ router.get('/edit/:inv_id', Util.handleErrors(invController.editInventoryView));
 
 router.post(
     '/vehicle',
+    Util.checkJWTToken,
     vehicleRegVal.registationRules(),
-    vehicleRegVal.checkRegData,
     Util.handleErrors(invController.registerVehicle)
 );
 router.post(

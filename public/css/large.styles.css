@@ -62,4 +62,14 @@
         padding: 0.5rem;
         margin: 0 0.5rem;
     }
+
+    /* ACCOUNT MANAGE PAGE */
+    .account {
+        width: 50vw;
+        font: 2rem;
+    }
+    .acount-updater > * {
+        font-size: 1.5rem;
+    }
+
 }
